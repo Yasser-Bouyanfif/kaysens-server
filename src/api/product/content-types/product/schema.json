@@ -1,0 +1,108 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "banner": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "variant": {
+      "type": "component",
+      "component": "product.variant",
+      "repeatable": true,
+      "required": true
+    },
+    "stock": {
+      "type": "integer",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "order_lines": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order-line.order-line",
+      "mappedBy": "product"
+    },
+    "families": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::family.family"
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::brand.brand"
+    },
+    "notesTop": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::note.note"
+    },
+    "notesHeart": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::note.note"
+    },
+    "notesBase": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::note.note"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "promotion": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::promotion.promotion",
+      "inversedBy": "products"
+    },
+    "promotion2": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::promotion.promotion",
+      "inversedBy": "excludedProducts"
+    },
+    "coupon": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::coupon.coupon",
+      "inversedBy": "products"
+    },
+    "coupon2": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::coupon.coupon",
+      "inversedBy": "excluded_products"
+    }
+  }
+}

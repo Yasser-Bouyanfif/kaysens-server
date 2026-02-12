@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_common_addresses",
+  "info": {
+    "displayName": "address"
+  },
+  "options": {},
+  "attributes": {
+    "fullName": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "address1": {
+      "type": "string"
+    },
+    "address2": {
+      "type": "string"
+    },
+    "postalCode": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "biginteger"
+    }
+  },
+  "config": {}
+}

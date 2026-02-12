@@ -1,0 +1,81 @@
+{
+  "kind": "collectionType",
+  "collectionName": "coupons",
+  "info": {
+    "singularName": "coupon",
+    "pluralName": "coupons",
+    "displayName": "Coupon"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "code": {
+      "type": "string",
+      "required": true
+    },
+    "discountType": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "percent",
+        "fixed"
+      ]
+    },
+    "value": {
+      "type": "integer",
+      "required": true
+    },
+    "active": {
+      "type": "boolean",
+      "required": true
+    },
+    "appliesTo": {
+      "type": "enumeration",
+      "default": "all",
+      "enum": [
+        "all",
+        "products",
+        "categories",
+        "brands"
+      ]
+    },
+    "startsAt": {
+      "type": "date"
+    },
+    "endsAt": {
+      "type": "date"
+    },
+    "usageLimitPerAccount": {
+      "type": "integer"
+    },
+    "minCartSubtotal": {
+      "type": "decimal"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "coupon"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category",
+      "mappedBy": "coupon"
+    },
+    "brands": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::brand.brand",
+      "mappedBy": "coupon"
+    },
+    "excluded_products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "coupon2"
+    }
+  }
+}
