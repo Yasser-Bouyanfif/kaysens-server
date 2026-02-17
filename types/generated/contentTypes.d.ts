@@ -647,10 +647,10 @@ export interface ApiOrderLineOrderLine extends Struct.CollectionTypeSchema {
     product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     quantity: Schema.Attribute.Integer;
-    unitPrice: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    variant: Schema.Attribute.Component<'product.variant', false>;
   };
 }
 
@@ -681,7 +681,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       ['paid', 'processing', 'shipped', 'delivered', 'canceled', 'refunded']
     >;
     publishedAt: Schema.Attribute.DateTime;
-    shipping: Schema.Attribute.Component<'common.shipping', true>;
+    shipping: Schema.Attribute.Component<'common.shipping', false>;
     shippingAddress: Schema.Attribute.Component<'common.address', false>;
     stripeSessionId: Schema.Attribute.UID;
     subTotal: Schema.Attribute.Decimal;
@@ -705,8 +705,6 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    banner: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
-      Schema.Attribute.Required;
     brand: Schema.Attribute.Relation<'oneToOne', 'api::brand.brand'>;
     category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
     coupon: Schema.Attribute.Relation<'manyToOne', 'api::coupon.coupon'>;
@@ -716,6 +714,12 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     description: Schema.Attribute.Text & Schema.Attribute.Required;
     families: Schema.Attribute.Relation<'oneToMany', 'api::family.family'>;
+    image_c: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.Required;
+    image_m: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.Required;
+    image_p: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -738,6 +742,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'api::promotion.promotion'
     >;
     publishedAt: Schema.Attribute.DateTime;
+    selections: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::selection.selection'
+    >;
     slug: Schema.Attribute.UID<'title'>;
     stock: Schema.Attribute.Integer & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
@@ -789,6 +797,34 @@ export interface ApiPromotionPromotion extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     value: Schema.Attribute.Integer;
+  };
+}
+
+export interface ApiSelectionSelection extends Struct.CollectionTypeSchema {
+  collectionName: 'selections';
+  info: {
+    displayName: 'Selection';
+    pluralName: 'selections';
+    singularName: 'selection';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::selection.selection'
+    > &
+      Schema.Attribute.Private;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1055,6 +1091,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     ext: Schema.Attribute.String;
+    focalPoint: Schema.Attribute.JSON;
     folder: Schema.Attribute.Relation<'manyToOne', 'plugin::upload.folder'> &
       Schema.Attribute.Private;
     folderPath: Schema.Attribute.String &
@@ -1312,6 +1349,7 @@ declare module '@strapi/strapi' {
       'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
       'api::promotion.promotion': ApiPromotionPromotion;
+      'api::selection.selection': ApiSelectionSelection;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

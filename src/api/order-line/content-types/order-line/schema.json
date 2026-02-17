@@ -14,8 +14,10 @@
     "quantity": {
       "type": "integer"
     },
-    "unitPrice": {
-      "type": "decimal"
+    "variant": {
+      "type": "component",
+      "component": "product.variant",
+      "repeatable": false
     },
     "product": {
       "type": "relation",

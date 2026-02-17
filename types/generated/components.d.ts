@@ -23,8 +23,27 @@ export interface CommonShipping extends Struct.ComponentSchema {
     displayName: 'shipping';
   };
   attributes: {
-    carrier: Schema.Attribute.String;
-    price: Schema.Attribute.Decimal;
+    carrier_code: Schema.Attribute.String & Schema.Attribute.Required;
+    carrier_name: Schema.Attribute.String & Schema.Attribute.Required;
+    city: Schema.Attribute.String;
+    country: Schema.Attribute.String;
+    currency: Schema.Attribute.String & Schema.Attribute.Required;
+    delivery_method_type: Schema.Attribute.Enumeration<
+      ['standard_delivery', 'service_point_delivery']
+    > &
+      Schema.Attribute.Required;
+    house_number: Schema.Attribute.String;
+    latitude: Schema.Attribute.Decimal;
+    longitude: Schema.Attribute.Decimal;
+    method_title: Schema.Attribute.String & Schema.Attribute.Required;
+    postal_code: Schema.Attribute.String;
+    price: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    service_point_code: Schema.Attribute.String;
+    service_point_id: Schema.Attribute.String;
+    service_point_name: Schema.Attribute.String;
+    shipping_option_id: Schema.Attribute.String & Schema.Attribute.Required;
+    street: Schema.Attribute.String;
+    weight_g: Schema.Attribute.Integer & Schema.Attribute.Required;
   };
 }
 

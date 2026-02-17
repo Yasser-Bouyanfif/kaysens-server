@@ -33,7 +33,7 @@
     "shipping": {
       "type": "component",
       "component": "common.shipping",
-      "repeatable": true
+      "repeatable": false
     },
     "subTotal": {
       "type": "decimal"

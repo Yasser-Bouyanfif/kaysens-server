@@ -5,10 +5,70 @@
   },
   "options": {},
   "attributes": {
-    "carrier": {
-      "type": "string"
+    "method_title": {
+      "type": "string",
+      "required": true
+    },
+    "delivery_method_type": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "standard_delivery",
+        "service_point_delivery"
+      ]
+    },
+    "carrier_name": {
+      "type": "string",
+      "required": true
+    },
+    "carrier_code": {
+      "type": "string",
+      "required": true
     },
     "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "currency": {
+      "type": "string",
+      "required": true
+    },
+    "weight_g": {
+      "type": "integer",
+      "required": true
+    },
+    "shipping_option_id": {
+      "type": "string",
+      "required": true
+    },
+    "service_point_id": {
+      "type": "string"
+    },
+    "service_point_code": {
+      "type": "string"
+    },
+    "service_point_name": {
+      "type": "string"
+    },
+    "street": {
+      "type": "string"
+    },
+    "house_number": {
+      "type": "string"
+    },
+    "postal_code": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "latitude": {
+      "type": "decimal"
+    },
+    "longitude": {
       "type": "decimal"
     }
   },

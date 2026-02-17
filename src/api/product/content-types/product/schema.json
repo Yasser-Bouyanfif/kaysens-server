@@ -15,22 +15,6 @@
       "type": "string",
       "required": true
     },
-    "banner": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
-    "category": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::category.category"
-    },
     "variant": {
       "type": "component",
       "component": "product.variant",
@@ -45,16 +29,48 @@
       "type": "text",
       "required": true
     },
-    "order_lines": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::order-line.order-line",
-      "mappedBy": "product"
+    "image_c": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "image_p": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "image_m": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     },
     "families": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::family.family"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
     },
     "brand": {
       "type": "relation",
@@ -80,6 +96,12 @@
       "type": "uid",
       "targetField": "title"
     },
+    "order_lines": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order-line.order-line",
+      "mappedBy": "product"
+    },
     "promotion": {
       "type": "relation",
       "relation": "manyToOne",
@@ -103,6 +125,12 @@
       "relation": "manyToOne",
       "target": "api::coupon.coupon",
       "inversedBy": "excluded_products"
+    },
+    "selections": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::selection.selection",
+      "inversedBy": "products"
     }
   }
 }
