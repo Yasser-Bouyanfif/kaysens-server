@@ -29,6 +29,17 @@
       "type": "text",
       "required": true
     },
+    "banner": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
     "image_c": {
       "type": "media",
       "multiple": false,
