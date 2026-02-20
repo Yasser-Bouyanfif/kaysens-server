@@ -493,6 +493,37 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCouponRedemptionCouponRedemption
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'coupon_redemptions';
+  info: {
+    displayName: 'Coupon-Redemption';
+    pluralName: 'coupon-redemptions';
+    singularName: 'coupon-redemption';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    coupon: Schema.Attribute.Relation<'manyToOne', 'api::coupon.coupon'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::coupon-redemption.coupon-redemption'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Relation<'oneToOne', 'api::order.order'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    userId: Schema.Attribute.String;
+  };
+}
+
 export interface ApiCouponCoupon extends Struct.CollectionTypeSchema {
   collectionName: 'coupons';
   info: {
@@ -515,6 +546,10 @@ export interface ApiCouponCoupon extends Struct.CollectionTypeSchema {
       'api::category.category'
     >;
     code: Schema.Attribute.String & Schema.Attribute.Required;
+    coupon_redemptions: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::coupon-redemption.coupon-redemption'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -694,6 +729,10 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
   };
   attributes: {
     billingAddress: Schema.Attribute.Component<'common.address', false>;
+    coupon_redemption: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::coupon-redemption.coupon-redemption'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -733,8 +772,6 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    banner: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
-      Schema.Attribute.Required;
     brand: Schema.Attribute.Relation<'oneToOne', 'api::brand.brand'>;
     category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
     coupon: Schema.Attribute.Relation<'manyToOne', 'api::coupon.coupon'>;
@@ -1371,6 +1408,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::brand.brand': ApiBrandBrand;
       'api::category.category': ApiCategoryCategory;
+      'api::coupon-redemption.coupon-redemption': ApiCouponRedemptionCouponRedemption;
       'api::coupon.coupon': ApiCouponCoupon;
       'api::family.family': ApiFamilyFamily;
       'api::hero.hero': ApiHeroHero;

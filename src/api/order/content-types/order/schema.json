@@ -60,6 +60,12 @@
     },
     "stripeSessionId": {
       "type": "uid"
+    },
+    "coupon_redemption": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::coupon-redemption.coupon-redemption",
+      "mappedBy": "order"
     }
   }
 }

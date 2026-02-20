@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "coupon_redemptions",
+  "info": {
+    "singularName": "coupon-redemption",
+    "pluralName": "coupon-redemptions",
+    "displayName": "Coupon-Redemption"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "userId": {
+      "type": "string"
+    },
+    "coupon": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::coupon.coupon",
+      "inversedBy": "coupon_redemptions"
+    },
+    "order": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::order.order",
+      "inversedBy": "coupon_redemption"
+    }
+  }
+}

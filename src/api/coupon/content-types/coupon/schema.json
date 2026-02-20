@@ -76,6 +76,12 @@
       "relation": "oneToMany",
       "target": "api::product.product",
       "mappedBy": "coupon2"
+    },
+    "coupon_redemptions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::coupon-redemption.coupon-redemption",
+      "mappedBy": "coupon"
     }
   }
 }
