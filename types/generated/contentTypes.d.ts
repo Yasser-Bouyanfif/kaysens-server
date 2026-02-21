@@ -493,6 +493,34 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCouponOfferCouponOffer extends Struct.CollectionTypeSchema {
+  collectionName: 'coupon_offers';
+  info: {
+    displayName: 'Coupon-Offer';
+    pluralName: 'coupon-offers';
+    singularName: 'coupon-offer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    coupon: Schema.Attribute.Relation<'oneToOne', 'api::coupon.coupon'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::coupon-offer.coupon-offer'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCouponRedemptionCouponRedemption
   extends Struct.CollectionTypeSchema {
   collectionName: 'coupon_redemptions';
@@ -620,10 +648,12 @@ export interface ApiHeroHero extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::hero.hero'> &
       Schema.Attribute.Private;
+    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1408,6 +1438,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::brand.brand': ApiBrandBrand;
       'api::category.category': ApiCategoryCategory;
+      'api::coupon-offer.coupon-offer': ApiCouponOfferCouponOffer;
       'api::coupon-redemption.coupon-redemption': ApiCouponRedemptionCouponRedemption;
       'api::coupon.coupon': ApiCouponCoupon;
       'api::family.family': ApiFamilyFamily;

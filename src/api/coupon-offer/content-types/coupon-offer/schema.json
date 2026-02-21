@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "coupon_offers",
+  "info": {
+    "singularName": "coupon-offer",
+    "pluralName": "coupon-offers",
+    "displayName": "Coupon-Offer"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "coupon": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::coupon.coupon"
+    }
+  }
+}
